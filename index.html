@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>מחשבון שכ״ט וגמול בתובענות ייצוגיות</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Heebo:wght@300;400;500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg: #f4efe6;
+                --bg-card: #fbf8f1;
+                --ink: #1a1815;
+                --ink-soft: #6b6359;
+                --rule: #d8cfbf;
+                --accent: #8b1e1e;
+                --accent-soft: #c9a9a9;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            html,
+            body {
+                background: var(--bg);
+            }
+
+            body {
+                color: var(--ink);
+                font-family: "Heebo", sans-serif;
+                min-height: 100vh;
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
+                padding: 5vh 5vw;
+                line-height: 1.5;
+                background-image:
+                    radial-gradient(
+                        circle at 20% 10%,
+                        rgba(139, 30, 30, 0.04),
+                        transparent 40%
+                    ),
+                    radial-gradient(
+                        circle at 80% 90%,
+                        rgba(139, 30, 30, 0.03),
+                        transparent 40%
+                    );
+            }
+
+            .container {
+                width: 100%;
+                max-width: 720px;
+            }
+
+            header {
+                border-bottom: 1px solid var(--rule);
+                padding-bottom: 1.5rem;
+                margin-bottom: 2.25rem;
+            }
+
+            .eyebrow {
+                font-size: 0.72rem;
+                letter-spacing: 0.18em;
+                color: var(--ink-soft);
+                margin-bottom: 0.6rem;
+            }
+
+            h1 {
+                font-family: "Frank Ruhl Libre", serif;
+                font-weight: 500;
+                font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+                line-height: 1.1;
+                color: var(--ink);
+                letter-spacing: -0.01em;
+            }
+
+            h1 em {
+                font-style: italic;
+                color: var(--accent);
+                font-weight: 400;
+            }
+
+            .subtitle {
+                font-family: "Frank Ruhl Libre", serif;
+                font-size: 1.05rem;
+                color: var(--ink-soft);
+                margin-top: 0.8rem;
+                font-style: italic;
+            }
+
+            .input-section {
+                background: var(--bg-card);
+                border: 1px solid var(--rule);
+                padding: 1.75rem;
+                margin-bottom: 2.25rem;
+                box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+            }
+
+            label {
+                display: block;
+                font-size: 0.82rem;
+                color: var(--ink-soft);
+                margin-bottom: 0.6rem;
+                letter-spacing: 0.03em;
+            }
+
+            .input-wrap {
+                display: flex;
+                align-items: baseline;
+                border-bottom: 2px solid var(--ink);
+                padding-bottom: 0.45rem;
+                gap: 0.5rem;
+            }
+
+            .currency-mark {
+                font-family: "Frank Ruhl Libre", serif;
+                font-size: 1.6rem;
+                color: var(--ink-soft);
+            }
+
+            input[type="text"] {
+                flex: 1;
+                background: transparent;
+                border: none;
+                outline: none;
+                font-family: "Frank Ruhl Libre", serif;
+                font-size: 2.1rem;
+                font-weight: 400;
+                color: var(--ink);
+                direction: ltr;
+                text-align: right;
+                width: 100%;
+                font-variant-numeric: tabular-nums;
+            }
+
+            input[type="text"]::placeholder {
+                color: var(--accent-soft);
+                opacity: 0.5;
+            }
+
+            .result-section {
+                margin-bottom: 2.5rem;
+            }
+
+            .result-label {
+                font-size: 0.82rem;
+                color: var(--ink-soft);
+                letter-spacing: 0.03em;
+                margin-bottom: 0.5rem;
+            }
+
+            .result-amount {
+                font-family: "Frank Ruhl Libre", serif;
+                font-size: 2.5rem;
+                font-weight: 500;
+                color: var(--accent);
+                line-height: 1.05;
+                direction: ltr;
+                display: inline-block;
+                font-variant-numeric: tabular-nums;
+                letter-spacing: -0.02em;
+            }
+
+            .result-amount .currency {
+                font-size: 0.45em;
+                color: var(--ink-soft);
+                margin-right: 0.3em;
+                font-style: italic;
+            }
+
+            .result-note {
+                font-family: "Frank Ruhl Libre", serif;
+                font-style: italic;
+                color: var(--ink-soft);
+                margin-top: 0.9rem;
+                font-size: 0.98rem;
+                max-width: 50ch;
+            }
+
+            .breakdown {
+                border-top: 1px solid var(--rule);
+                padding-top: 1.75rem;
+            }
+
+            .breakdown-title {
+                font-family: "Frank Ruhl Libre", serif;
+                font-size: 1.15rem;
+                font-weight: 500;
+                margin-bottom: 1rem;
+                color: var(--ink);
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.92rem;
+            }
+
+            th,
+            td {
+                padding: 0.75rem 0.5rem;
+                text-align: right;
+                border-bottom: 1px solid var(--rule);
+            }
+
+            th {
+                font-family: "Heebo", sans-serif;
+                font-weight: 500;
+                color: var(--ink-soft);
+                font-size: 0.72rem;
+                letter-spacing: 0.07em;
+                text-transform: uppercase;
+            }
+
+            td {
+                font-family: "Frank Ruhl Libre", serif;
+                transition:
+                    opacity 0.2s ease,
+                    color 0.2s ease;
+            }
+
+            td.numeric {
+                direction: ltr;
+                text-align: left;
+                font-variant-numeric: tabular-nums;
+            }
+
+            tr.inactive td {
+                color: var(--ink-soft);
+                opacity: 0.4;
+            }
+
+            tr.active td.contribution {
+                color: var(--accent);
+                font-weight: 500;
+            }
+
+            tfoot td {
+                font-family: "Frank Ruhl Libre", serif;
+                font-weight: 700;
+                border-bottom: none;
+                border-top: 2px solid var(--ink);
+                padding-top: 1rem;
+                font-size: 1rem;
+            }
+
+            footer {
+                margin-top: 3rem;
+                padding-top: 1.5rem;
+                border-top: 1px solid var(--rule);
+                font-size: 0.82rem;
+                color: var(--ink-soft);
+                line-height: 1.7;
+                font-style: italic;
+                font-family: "Frank Ruhl Libre", serif;
+            }
+
+            @media (max-width: 600px) {
+                body {
+                    padding: 3vh 4vw;
+                }
+                .input-section {
+                    padding: 1.25rem;
+                }
+                input[type="text"] {
+                    font-size: 1.6rem;
+                }
+                table {
+                    font-size: 0.82rem;
+                }
+                th,
+                td {
+                    padding: 0.55rem 0.3rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div class="eyebrow">תובענות ייצוגיות · מודל מדורג</div>
+                <h1>מחשבון סכ״ט וגמול</h1>
+                <p class="subtitle">
+                    חישוב התקרה לפי שיעורים שוליים מדורגים על סכום הסעד
+                </p>
+            </header>
+
+            <div class="input-section">
+                <label for="amount">סכום הסעד (במליוני ש״ח)</label>
+                <div class="input-wrap">
+                    <input
+                        type="text"
+                        id="amount"
+                        placeholder="0"
+                        inputmode="decimal"
+                        autocomplete="off"
+                    />
+                </div>
+            </div>
+
+            <div class="result-section">
+                <div class="result-label">תקרת שכ״ט / גמול (במיליוני ש״ח)</div>
+                <div class="result-amount">
+                    <span id="result">0</span>
+            </div>
+
+            <div class="breakdown">
+                <div class="breakdown-title">פירוט לפי מדרגות</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>מדרגה</th>
+                            <th>שיעור</th>
+                            <th class="numeric">חלק מ‑X</th>
+                            <th class="numeric">תרומה לסכום</th>
+                        </tr>
+                    </thead>
+                    <tbody id="breakdown-body"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">סה״כ</td>
+                            <td class="numeric" id="footer-total">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <footer>
+                החישוב מבוסס על מודל המדרגות המקובל בפסיקה (מתווה ועדת גרוסקופף)
+                ומשמש כקו מנחה בלבד; בית המשפט רשאי לסטות ממנו לפי נסיבות התיק.
+                אין באמור משום ייעוץ משפטי.
+            </footer>
+        </div>
+
+        <script>
+            // All amounts are in millions of ₪
+            const BRACKETS = [
+                { from: 0, to: 5, rate: 0.25, label: "עד 5M" },
+                { from: 5, to: 10, rate: 0.2, label: "5M – 10M" },
+                { from: 10, to: 30, rate: 0.15, label: "10M – 30M" },
+                { from: 30, to: 60, rate: 0.12, label: "30M – 60M" },
+                { from: 60, to: 100, rate: 0.1, label: "60M – 100M" },
+                { from: 100, to: Infinity, rate: 0.01, label: "מעל 100M" },
+            ];
+
+            const input = document.getElementById("amount");
+            const result = document.getElementById("result");
+            const footerTotal = document.getElementById("footer-total");
+            const body = document.getElementById("breakdown-body");
+
+            function parseAmount(str) {
+                const cleaned = String(str).replace(/[^\d.]/g, "");
+                if (!cleaned) return 0;
+                return parseFloat(cleaned) || 0;
+            }
+
+            function formatM(n) {
+                if (n === 0) return "0";
+                return n.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                });
+            }
+
+            function compute(x) {
+                let total = 0;
+                const rows = BRACKETS.map((b) => {
+                    const portion = Math.max(0, Math.min(x, b.to) - b.from);
+                    const contribution = portion * b.rate;
+                    total += contribution;
+                    return { ...b, portion, contribution, active: portion > 0 };
+                });
+                return { total, rows };
+            }
+
+            function render() {
+                const x = parseAmount(input.value);
+                const { total, rows } = compute(x);
+
+                result.textContent = formatM(total);
+                footerTotal.textContent = formatM(total);
+
+                body.innerHTML = rows
+                    .map(
+                        (r) => `
+        <tr class="${r.active ? "active" : "inactive"}">
+          <td>${r.label}</td>
+          <td>${(r.rate * 100).toFixed(0)}%</td>
+          <td class="numeric">${formatM(r.portion)}</td>
+          <td class="numeric contribution">${formatM(r.contribution)}</td>
+        </tr>
+      `,
+                    )
+                    .join("");
+            }
+
+            function formatInputValue() {
+                const raw = input.value.replace(/[^\d.]/g, "");
+                if (raw === "") {
+                    input.value = "";
+                    return;
+                }
+                const num = parseFloat(raw);
+                if (!isNaN(num)) {
+                    // preserve a single trailing dot while typing decimals
+                    const hasTrailingDot =
+                        raw.endsWith(".") && !raw.slice(0, -1).includes(".");
+                    const formatted = num.toLocaleString("en-US", {
+                        maximumFractionDigits: 2,
+                    });
+                    input.value = hasTrailingDot ? formatted + "." : formatted;
+                }
+            }
+
+            input.addEventListener("input", () => {
+                formatInputValue();
+                render();
+            });
+
+            render();
+        </script>
+    </body>
+</html>
