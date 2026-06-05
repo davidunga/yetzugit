@@ -156,6 +156,12 @@
                 margin-bottom: 0.5rem;
             }
 
+            .result-row {
+                display: flex;
+                align-items: center;
+                gap: 0.9rem;
+            }
+
             .result-amount {
                 font-family: "Frank Ruhl Libre", serif;
                 font-size: 2.5rem;
@@ -163,9 +169,48 @@
                 color: var(--accent);
                 line-height: 1.05;
                 direction: ltr;
-                display: inline-block;
                 font-variant-numeric: tabular-nums;
                 letter-spacing: -0.02em;
+            }
+
+            .copy-btn {
+                flex: none;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.4rem;
+                background: transparent;
+                border: 1px solid var(--rule);
+                color: var(--ink-soft);
+                font-family: "Heebo", sans-serif;
+                font-size: 0.78rem;
+                letter-spacing: 0.03em;
+                padding: 0.45rem 0.7rem;
+                cursor: pointer;
+                transition:
+                    border-color 0.2s ease,
+                    color 0.2s ease,
+                    background 0.2s ease;
+            }
+
+            .copy-btn:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+            }
+
+            .copy-btn:active {
+                background: rgba(139, 30, 30, 0.06);
+            }
+
+            .copy-btn.copied {
+                border-color: var(--accent);
+                color: var(--accent);
+            }
+
+            .copy-btn svg {
+                width: 1rem;
+                height: 1rem;
+                flex: none;
             }
 
             .result-amount .currency {
@@ -307,8 +352,32 @@
 
             <div class="result-section">
                 <div class="result-label">תקרת שכ״ט וגמול (ש״ח)</div>
-                <div class="result-amount">
-                    <span id="result">0</span>
+                <div class="result-row">
+                    <div class="result-amount">
+                        <span id="result">0</span>
+                    </div>
+                    <button
+                        type="button"
+                        id="copy-btn"
+                        class="copy-btn"
+                        title="העתקת התוצאה"
+                        aria-label="העתקת התוצאה ללוח"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span id="copy-btn-label">העתק</span>
+                    </button>
+                </div>
             </div>
 
             <div class="breakdown">
@@ -352,6 +421,8 @@
             const result = document.getElementById("result");
             const footerTotal = document.getElementById("footer-total");
             const body = document.getElementById("breakdown-body");
+            const copyBtn = document.getElementById("copy-btn");
+            const copyBtnLabel = document.getElementById("copy-btn-label");
 
             function parseAmount(str) {
                 const cleaned = String(str).replace(/[^\d.]/g, "");
@@ -421,6 +492,42 @@
                 formatInputValue();
                 render();
             });
+
+            let copyResetTimer = null;
+
+            async function copyResult() {
+                const text = result.textContent;
+                try {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        await navigator.clipboard.writeText(text);
+                    } else {
+                        // fallback for non-secure contexts / older browsers
+                        const ta = document.createElement("textarea");
+                        ta.value = text;
+                        ta.style.position = "fixed";
+                        ta.style.opacity = "0";
+                        document.body.appendChild(ta);
+                        ta.select();
+                        document.execCommand("copy");
+                        document.body.removeChild(ta);
+                    }
+                    copyBtnLabel.textContent = "הועתק";
+                    copyBtn.classList.add("copied");
+                    clearTimeout(copyResetTimer);
+                    copyResetTimer = setTimeout(() => {
+                        copyBtnLabel.textContent = "העתק";
+                        copyBtn.classList.remove("copied");
+                    }, 1800);
+                } catch (e) {
+                    copyBtnLabel.textContent = "שגיאה";
+                    clearTimeout(copyResetTimer);
+                    copyResetTimer = setTimeout(() => {
+                        copyBtnLabel.textContent = "העתק";
+                    }, 1800);
+                }
+            }
+
+            copyBtn.addEventListener("click", copyResult);
 
             render();
         </script>
